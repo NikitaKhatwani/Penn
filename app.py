@@ -83,7 +83,7 @@ with st.sidebar:
     st.divider()
 
     # show_precinct_overlay = st.checkbox("Show precinct circles", False)
-    show_precinct_labels = st.checkbox("Show precinct labels", False)
+    # show_precinct_labels = st.checkbox("Show precinct labels", False)
 
     st.divider()
 
@@ -219,15 +219,15 @@ if precinct_summary is not None:
         stroked=True,
     ))
 
-    if show_precinct_labels:
-        layers.append(pdk.Layer(
-            "TextLayer",
-            data=precinct_summary,
-            get_position="[center_lon, center_lat]",
-            get_text="label",
-            get_size=16,
-            get_color=[60,0,0,230],
-        ))
+    # if show_precinct_labels:
+    #     layers.append(pdk.Layer(
+    #         "TextLayer",
+    #         data=precinct_summary,
+    #         get_position="[center_lon, center_lat]",
+    #         get_text="label",
+    #         get_size=16,
+    #         get_color=[60,0,0,230],
+    #     ))
 
 # =============================
 # MAP VIEW
