@@ -82,7 +82,7 @@ with st.sidebar:
 
     st.divider()
 
-    show_precinct_overlay = st.checkbox("Show precinct circles", False)
+    # show_precinct_overlay = st.checkbox("Show precinct circles", False)
     show_precinct_labels = st.checkbox("Show precinct labels", False)
 
     st.divider()
@@ -138,45 +138,45 @@ else:
 # =============================
 precinct_summary = None
 
-if show_precinct_overlay:
+# if show_precinct_overlay:
 
-    valid_df = df.copy()
+#     valid_df = df.copy()
 
-    if len(selected_precincts) > 0:
-        valid_df = valid_df[valid_df["precinct"].isin(selected_precincts)]
+#     if len(selected_precincts) > 0:
+#         valid_df = valid_df[valid_df["precinct"].isin(selected_precincts)]
 
-    valid_df = valid_df[valid_df["proposed_status"].isin(selected_status)]
+#     valid_df = valid_df[valid_df["proposed_status"].isin(selected_status)]
 
-    if not valid_df.empty:
+#     if not valid_df.empty:
 
-        precinct_summary = (
-            valid_df.groupby("precinct")
-            .agg(
-                center_lat=("lat","mean"),
-                center_lon=("lon","mean"),
-                lat_min=("lat","min"),
-                lat_max=("lat","max"),
-                lon_min=("lon","min"),
-                lon_max=("lon","max"),
-                count=("lat","count")
-            )
-            .reset_index()
-        )
+#         precinct_summary = (
+#             valid_df.groupby("precinct")
+#             .agg(
+#                 center_lat=("lat","mean"),
+#                 center_lon=("lon","mean"),
+#                 lat_min=("lat","min"),
+#                 lat_max=("lat","max"),
+#                 lon_min=("lon","min"),
+#                 lon_max=("lon","max"),
+#                 count=("lat","count")
+#             )
+#             .reset_index()
+#         )
 
-        # convert spans to meters
-        lat_span = (precinct_summary["lat_max"] - precinct_summary["lat_min"]) * 111000
-        lon_span = (precinct_summary["lon_max"] - precinct_summary["lon_min"]) * 85000
+#         # convert spans to meters
+#         lat_span = (precinct_summary["lat_max"] - precinct_summary["lat_min"]) * 111000
+#         lon_span = (precinct_summary["lon_max"] - precinct_summary["lon_min"]) * 85000
 
-        # radius = half diagonal
-        precinct_summary["radius"] = ((lat_span**2 + lon_span**2) ** 0.5) / 2
+#         # radius = half diagonal
+#         precinct_summary["radius"] = ((lat_span**2 + lon_span**2) ** 0.5) / 2
 
-        # small padding
-        precinct_summary["radius"] = precinct_summary["radius"] * 1.1
+#         # small padding
+#         precinct_summary["radius"] = precinct_summary["radius"] * 1.1
 
-        precinct_summary["label"] = precinct_summary.apply(
-            lambda r: f"{r['precinct']}\n{r['count']} buildings",
-            axis=1
-        )
+#         precinct_summary["label"] = precinct_summary.apply(
+#             lambda r: f"{r['precinct']}\n{r['count']} buildings",
+#             axis=1
+#         )
 
 # =============================
 # MAP LAYERS
